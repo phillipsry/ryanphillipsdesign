@@ -1,0 +1,190 @@
+/* ===========================================================================
+   Quill components — extracted stylesheet
+   ---------------------------------------------------------------------------
+   These rules are lifted verbatim from the design system's Button, Badge and
+   ProductCard components (which normally inject them at mount). This page
+   renders those components as static markup so every label is editable in
+   place — so the CSS is linked here instead. Tokens come from the DS token
+   sheets; link this file AFTER styles.css.
+   =========================================================================== */
+
+/* ---- Button (components/forms/Button.jsx) ------------------------------ */
+.ql-btn {
+  --_bg: var(--ink);
+  --_fg: var(--paper);
+  --_bd: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-3);
+  font-family: var(--font-body);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-base);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid var(--_bd);
+  background: var(--_bg);
+  color: var(--_fg);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-8);
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+.ql-btn:hover { transform: var(--lift-sm); box-shadow: var(--shadow-btn-hover); }
+.ql-btn:active { transform: translateY(0); box-shadow: none; }
+.ql-btn:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; }
+.ql-btn .ql-btn__arrow { transition: transform var(--dur) var(--ease-out); }
+.ql-btn:hover .ql-btn__arrow { transform: translateX(4px); }
+
+/* Primary — solid ink, warms to terracotta on hover */
+.ql-btn--primary:hover { --_bg: var(--terracotta); --_bd: var(--terracotta); }
+
+/* Accent — terracotta from rest, deepens on press */
+.ql-btn--accent { --_bg: var(--terracotta); --_bd: var(--terracotta); }
+.ql-btn--accent:hover { --_bg: var(--terracotta-deep); --_bd: var(--terracotta-deep); }
+
+/* Secondary — ink outline on paper, fills ink on hover */
+.ql-btn--secondary { --_bg: transparent; --_fg: var(--ink); --_bd: var(--ink); }
+.ql-btn--secondary:hover { --_bg: var(--ink); --_fg: var(--paper); }
+
+/* Ghost — text only, terracotta on hover */
+.ql-btn--ghost { --_bg: transparent; --_fg: var(--ink-soft); --_bd: transparent; }
+.ql-btn--ghost:hover { --_fg: var(--terracotta); box-shadow: none; }
+
+/* Link — underlined inline text, no chrome; never lifts */
+.ql-btn--link {
+  --_bg: transparent; --_fg: var(--ink); --_bd: transparent;
+  padding-left: 0; padding-right: 0;
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; text-decoration-color: var(--line-strong);
+}
+.ql-btn--link:hover { --_fg: var(--terracotta); text-decoration-color: var(--terracotta); transform: none; box-shadow: none; }
+.ql-btn--link:active { transform: none; }
+
+/* Sizes */
+.ql-btn--sm { font-size: var(--text-sm); padding: var(--space-2) var(--space-4); }
+.ql-btn--lg { font-size: var(--text-lg); padding: var(--space-5) var(--space-10); }
+
+.ql-btn:disabled, .ql-btn[aria-disabled="true"] {
+  opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none;
+}
+
+/* ---- Badge (components/display/Badge.jsx) ------------------------------ */
+.ql-badge {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.ql-badge--everyday { background: var(--tier-everyday-bg); color: var(--tier-everyday-fg); }
+.ql-badge--featured { background: var(--tier-featured-bg); color: var(--tier-featured-fg); }
+.ql-badge--signed   { background: var(--tier-signed-bg);   color: var(--tier-signed-fg); }
+.ql-badge--heirloom { background: var(--tier-heirloom-bg); color: var(--tier-heirloom-fg); }
+.ql-badge--neutral  { background: var(--paper-deep); color: var(--ink-soft); }
+
+/* ---- Card (components/surfaces/Card.jsx) ------------------------------- */
+.ql-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out);
+}
+.ql-card--interactive { cursor: pointer; }
+.ql-card--interactive:hover {
+  transform: var(--lift);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--line-strong);
+}
+.ql-card--flush { padding: 0; overflow: hidden; }
+
+/* ---- Eyebrow (components/display/Eyebrow.jsx) --------------------------- */
+.ql-eyebrow {
+  display: inline-flex; align-items: center; gap: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--terracotta);
+}
+.ql-eyebrow::before {
+  content: ''; width: 24px; height: 1px; background: currentColor; display: inline-block;
+}
+.ql-eyebrow--muted { color: var(--ink-muted); letter-spacing: var(--tracking-widest); }
+.ql-eyebrow--muted::before { display: none; }
+
+/* ---- ProductCard (components/surfaces/ProductCard.jsx) ----------------- */
+.ql-productcard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform var(--dur) var(--ease-out),
+              box-shadow var(--dur) var(--ease-out),
+              border-color var(--dur) var(--ease-out);
+}
+.ql-productcard:hover {
+  transform: var(--lift);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--line-strong);
+}
+.ql-productcard__portrait {
+  position: relative; overflow: hidden;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  background: var(--paper-deep);
+}
+.ql-productcard__portrait img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; display: block;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.ql-productcard:hover .ql-productcard__portrait img { transform: scale(1.02); }
+.ql-productcard__no {
+  position: absolute; top: var(--space-3); right: var(--space-3);
+  font-family: var(--font-display); font-style: italic;
+  font-variation-settings: var(--fraunces-caption);
+  font-size: var(--text-sm); color: var(--ink-muted);
+  background: var(--paper-warm); padding: 2px 8px;
+  border-radius: var(--radius-pill); border: 1px solid var(--line-soft);
+}
+.ql-productcard__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl); font-weight: var(--weight-medium);
+  font-variation-settings: var(--fraunces-text);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink); margin: 0 0 var(--space-2);
+}
+.ql-productcard__desc {
+  font-size: var(--text-base); color: var(--ink-soft);
+  line-height: var(--leading-normal); margin: 0 0 var(--space-4);
+}
+.ql-productcard__footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: var(--space-4); border-top: 1px solid var(--border-divider);
+}
+.ql-productcard__tags {
+  display: flex; align-items: center; gap: var(--space-2);
+  font-size: var(--text-2xs); text-transform: uppercase;
+  letter-spacing: var(--tracking-wide); color: var(--ink-muted);
+}
+.ql-productcard__action {
+  font-size: var(--text-sm); color: var(--terracotta);
+  font-weight: var(--weight-medium); display: inline-flex; align-items: center; gap: 4px;
+}
+.ql-productcard__action span { transition: transform var(--dur) var(--ease-out); }
+.ql-productcard:hover .ql-productcard__action span { transform: translateX(3px); }

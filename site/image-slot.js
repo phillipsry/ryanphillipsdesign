@@ -64,6 +64,12 @@
   // page. Reads via fetch() so viewing works anywhere the HTML and sidecar
   // are served together; writes go through window.omelette.writeFile, which
   // the host allowlists to *.state.json basenames only.
+  // Only the omelette editor runtime persists dropped images, so only it needs
+  // the sidecar. For public viewing every slot falls back to its author-set
+  // `src` (a real file on disk), so skipping this fetch avoids pulling the
+  // whole — potentially large — sidecar on every page load.
+  const isEditor = () => !!(window.omelette && window.omelette.writeFile);
+
   const subs = new Set();
   let slots = {};
   // ids explicitly cleared before the sidecar fetch resolved — otherwise
@@ -75,6 +81,12 @@
 
   function load() {
     if (loadP) return loadP;
+    // Public viewers render from `src`, not the sidecar — don't fetch it.
+    if (!isEditor()) {
+      loaded = true;
+      loadP = Promise.resolve();
+      return loadP;
+    }
     loadP = fetch(STATE_FILE)
       .then((r) => (r.ok ? r.json() : null))
       .then((j) => {

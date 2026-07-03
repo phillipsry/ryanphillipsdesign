@@ -46,12 +46,12 @@
   /* Fractal-noise paper grain, encoded as an SVG data-URI. Apply with the
      .paper-grain utility (multiply blend) over any large surface.
      @kind other */
-  --grain-noise: url("grain-noise.png");  /* rasterized from the original feTurbulence SVG data-URI (bundler-safe) @kind other */
+  --grain-noise: url("grain-noise.webp");  /* rasterized from the original feTurbulence SVG data-URI (bundler-safe) @kind other */
 
   /* Light-tinted grain — for dark grounds, where the dark multiply grain
      would vanish. Used by .paper-grain under a screen blend in dark mode.
      @kind other */
-  --grain-noise-light: url("grain-noise-light.png");  /* rasterized from the original feTurbulence SVG data-URI (bundler-safe) @kind other */
+  --grain-noise-light: url("grain-noise-light.webp");  /* rasterized from the original feTurbulence SVG data-URI (bundler-safe) @kind other */
 }
 
 /* ---------------------------------------------------------------------------

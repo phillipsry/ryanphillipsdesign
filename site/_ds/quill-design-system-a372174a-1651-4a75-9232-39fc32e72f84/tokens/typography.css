@@ -1,0 +1,62 @@
+/* ===========================================================================
+   Quill — Typography
+   ---------------------------------------------------------------------------
+   Two voices:
+     • Display  — Fraunces. Used at large sizes, light weight, tight tracking.
+                  Italic + terracotta is reserved for the ONE emphasized word.
+                  Variable axes do the expressive work:
+                    opsz  9..144  (match optical size to render size)
+                    SOFT  0..100  (rounder terminals as size grows)
+                    WONK  0 | 1   (the playful, off-kilter glyphs — accents only)
+     • Body/UI  — Inter. 400/500/600, generous line-height, no tricks.
+   =========================================================================== */
+
+:root {
+  /* ---- Families -------------------------------------------------------- */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', 'Menlo', monospace;
+
+  /* ---- Weights --------------------------------------------------------- */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  /* ---- Type scale (rem) ------------------------------------------------ */
+  --text-2xs:  0.7rem;    /* 11.2px — micro labels, tier badges */
+  --text-xs:   0.75rem;   /* 12px   — meta, eyebrows */
+  --text-sm:   0.85rem;   /* 13.6px — captions, fine print */
+  --text-base: 0.95rem;   /* 15.2px — UI text, buttons */
+  --text-md:   1.0rem;    /* 16px   — comfortable body */
+  --text-lg:   1.15rem;   /* 18.4px — lead paragraphs */
+  --text-xl:   1.5rem;    /* 24px   — card titles, wordmark */
+  --text-2xl:  2rem;      /* 32px   — sub-headings */
+  --text-3xl:  3rem;      /* 48px   — section titles */
+  --text-4xl:  4rem;      /* 64px   — page heads */
+  --text-5xl:  5.5rem;    /* 88px   — hero display */
+
+  /* ---- Line height ----------------------------------------------------- */
+  --leading-tight:  1.05;  /* large display */
+  --leading-snug:   1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed:1.7;   /* body copy */
+
+  /* ---- Tracking -------------------------------------------------------- */
+  --tracking-display: -0.03em;  /* tighten big serif */
+  --tracking-tight:   -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.1em;
+  --tracking-wider:   0.15em;   /* uppercase eyebrows */
+  --tracking-widest:  0.2em;    /* section labels */
+
+  /* ---- Variation-setting presets (Fraunces) ---------------------------- */
+  --fraunces-display: 'SOFT' 50,  'opsz' 144, 'WONK' 0;   /* @kind font */
+  --fraunces-accent:  'SOFT' 100, 'opsz' 144, 'WONK' 1;   /* @kind font */
+  --fraunces-text:    'SOFT' 50,  'opsz' 24,  'WONK' 0;   /* @kind font */
+  --fraunces-caption: 'SOFT' 100, 'opsz' 14,  'WONK' 0;   /* @kind font */
+
+  /* ---- Semantic roles -------------------------------------------------- */
+  --type-eyebrow-size:    var(--text-xs);
+  --type-eyebrow-track:   var(--tracking-wider);
+  --type-section-label:   var(--text-xs);
+}

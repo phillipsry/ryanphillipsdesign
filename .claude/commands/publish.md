@@ -1,26 +1,38 @@
 ---
-description: Commit the current site/ changes and push to GitHub (Vercel auto-deploys)
+description: Commit ALL changes in the repo and push to GitHub (Vercel auto-deploys)
 ---
 
-# /publish — ship the latest site export
+# /publish — ship the latest changes
 
-The user has already replaced the `site/` folder on disk with a fresh export from
-Claude Design. Your job is to get those changes committed and pushed so Vercel
-auto-deploys. Run fully hands-off — do NOT ask for confirmation before pushing —
-with ONE exception: the secret scan below. If it trips, STOP and warn; never push
-a secret.
+The user has updated files on disk — usually by replacing the `site/` folder with a
+fresh export from Claude Design, but possibly other files too (README, PUBLISHING.md,
+config). Analyze the **entire repository** for changes, not just `site/`, then commit
+and push everything so Vercel auto-deploys.
 
-Work only from the repo root. Do all of this in as few Bash calls as possible.
+Run fully hands-off — do NOT ask for confirmation before pushing — with ONE
+exception: the secret scan below. If it trips, STOP and warn; never push a secret.
+
+Work from the repo root. Do all of this in as few Bash calls as possible.
 
 ## Steps
 
-1. **See what changed.**
+1. **See everything that changed, repo-wide.** `git add -A` from the repo root stages
+   every modified, added, and deleted file anywhere in the project — `site/` and all.
    ```
    git status --short
    git add -A
    ```
    If there is nothing to commit (`git status --short` is empty after add), tell the
-   user "No changes to publish — `site/` already matches what's on GitHub." and stop.
+   user "No changes to publish — the repo already matches what's on GitHub." and stop.
+
+   **Sanity guard (protects against a bad folder replacement).** If the staged change
+   set shows repo scaffolding being *deleted* — any of `.claude/`, `PUBLISHING.md`,
+   `README.md`, `.gitignore`, `vercel.json`, or a large number of tracked non-`site/`
+   files disappearing — that almost certainly means the user overwrote the whole
+   project folder with an export that only contained `site/`. Do NOT commit. `git reset`
+   to unstage, then warn the user: they should replace only the *contents of `site/`*,
+   keeping the repo's other files (especially the hidden `.git` and `.claude` folders)
+   in place, and re-run `/publish`.
 
 2. **Secret scan (the one hard gate).** Scan the staged, human-readable files for
    accidentally-included credentials:

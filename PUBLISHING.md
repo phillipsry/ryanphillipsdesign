@@ -7,13 +7,14 @@ All content and design edits happen there; this repo is the *published output* o
 
 1. Edit and preview in Claude design until you're happy.
 2. Ask it to **"package for publish."** You get a `site/` folder that is already optimized.
-3. Replace the contents of this repo's `site/` folder with that folder (a clean overwrite).
-4. Commit and push to `main`: `git add . && git commit -m "…" && git push`, or just tell Claude Code *"commit all changes and push to main."*
+3. Replace the **contents of this repo's `site/` folder** with that folder (a clean overwrite). Leave the repo's other files — especially the hidden `.git` and `.claude` folders — in place.
+4. In Claude Code, run the **`/publish`** command. It stages every change, scans for secrets, commits, and pushes to `main`.
 5. Vercel auto-deploys in ~30s. Hard-refresh to confirm.
 
-## Guardrail
+## Guardrails
 
-Do **not** hand-edit the files in `site/` from VS Code. They are generated output, and the next publish overwrites them. Use VS Code / Claude Code only for git, `vercel.json`, and repo config; never for content or design.
+- **Publish exactly one way: the `/publish` command (git).** Do **not** also upload, edit, or delete files through the GitHub website (github.com). Using both at once makes the two paths collide on `main` and can scramble the site. Pick git; leave the web UI alone.
+- Do **not** hand-edit the files in `site/` from VS Code. They are generated output, and the next publish overwrites them. Use VS Code / Claude Code only for git, `vercel.json`, and repo config; never for content or design.
 
 ## What each package already includes
 

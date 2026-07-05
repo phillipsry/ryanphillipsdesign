@@ -1,0 +1,54 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/tracking-ai-token-usage",
+      "destination": "/Case-Tracking-AI-Token-Usage.dc.html"
+    },
+    {
+      "source": "/a-system-that-scales",
+      "destination": "/Case-A-System-That-Scales.dc.html"
+    },
+    {
+      "source": "/from-prompt-to-production",
+      "destination": "/Case-From-Prompt-To-Production.dc.html"
+    },
+    {
+      "source": "/side-projects",
+      "destination": "/Side Projects-Made-In-The-Margins.dc.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Home.dc.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/Case-Tracking-AI-Token-Usage.dc.html",
+      "destination": "/tracking-ai-token-usage",
+      "permanent": true
+    },
+    {
+      "source": "/Case-A-System-That-Scales.dc.html",
+      "destination": "/a-system-that-scales",
+      "permanent": true
+    },
+    {
+      "source": "/Case-From-Prompt-To-Production.dc.html",
+      "destination": "/from-prompt-to-production",
+      "permanent": true
+    },
+    {
+      "source": "/Side Projects-Made-In-The-Margins.dc.html",
+      "destination": "/side-projects",
+      "permanent": true
+    }
+  ]
+}

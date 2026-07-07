@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,6 +40,25 @@
   html, body { margin: 0; }
   body { background-color: #E6E9EB; background-image: var(--grain-noise); background-attachment: fixed; background-blend-mode: multiply; --font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --rp-accent: #5B6B8A; }
   ::selection { background: rgba(91,107,138,.20); }
+  body { --ink-muted: #6E6559; --rp-accent: #56658A; } /* WCAG AA contrast-safe values */
+  /* AA contrast for the Quill demo specimens — light scope deepens the pigments;
+     the dark scope restores the DS's lifted tokens, which already pass on walnut. */
+  .sp-grid .ql-btn--accent { --_bg: var(--terracotta-deep); --_bd: var(--terracotta-deep); }
+  .sp-grid .ql-btn--accent:hover { --_bg: #8A4632; --_bd: #8A4632; }
+  .sp-grid .ql-btn--primary:hover { --_bg: var(--terracotta-deep); --_bd: var(--terracotta-deep); }
+  .sp-grid .ql-btn--ghost:hover { --_fg: #994C36; }
+  .sp-grid .ql-badge--heirloom { color: #8A4632; }
+  .sp-grid .ql-badge--signed { color: #495635; }
+  .sp-grid [data-theme="dark"] .ql-btn--accent { --_bg: var(--terracotta); --_bd: var(--terracotta); }
+  .sp-grid [data-theme="dark"] .ql-btn--accent:hover { --_bg: var(--terracotta-deep); --_bd: var(--terracotta-deep); }
+  .sp-grid [data-theme="dark"] .ql-btn--primary:hover { --_bg: var(--terracotta); --_bd: var(--terracotta); }
+  .sp-grid [data-theme="dark"] .ql-btn--ghost:hover { --_fg: var(--terracotta); }
+  .sp-grid [data-theme="dark"] .ql-badge--heirloom { color: var(--dk-terracotta-deep); }
+  .sp-grid [data-theme="dark"] .ql-badge--signed { color: var(--dk-moss-deep); }
+  a:focus-visible, button:focus-visible { outline: 2px solid #44516D; outline-offset: 2px; border-radius: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .rp-skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--ink); color: #F4F5F6; font-family: 'Raleway', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 0 0 6px 6px; text-decoration: none; transition: top .2s cubic-bezier(.4,0,.2,1); }
+  .rp-skip:focus { top: 0; }
   section, footer { background-color: #E6E9EB !important; background-image: var(--grain-noise); background-attachment: fixed; background-blend-mode: multiply; }
   .rp-panel { background-color: #ECEEF0 !important; }
   .rp-wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
@@ -61,7 +80,95 @@
   .rp-shimmer:hover { animation: rp-shimmer-sweep 1.5s ease-in-out; }
   @keyframes rp-shimmer-sweep { 0% { background-position: 100% 0; } 100% { background-position: 0% 0; } }
   .rp-navlinks { display: flex; align-items: center; gap: 30px; font-family: 'Raleway', sans-serif; font-size: 14px; }
-  .sp-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .sp-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 22px; --font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  /* ── Production Quill components — recreated with values lifted VERBATIM from
+     phillipsry/quill-ds (src/components/ui/{button,badge,card}.tsx + globals.css
+     token block). Scoped to .sp-grid so the specimen matches the shipped repo,
+     independent of this project's older reverse-engineered DS copy. */
+  .sp-grid {
+    /* semantic tokens — production LIGHT values */
+    --ink:#2A2622; --ink-soft:#5C524A; --ink-muted:#675F58;
+    --paper:#F5EDDD; --paper-warm:#EFE4CE; --paper-deep:#E8DCC0;
+    --terracotta:#C4684B; --terracotta-deep:#8A4530;
+    --moss:#7A8C5C; --moss-deep:#5E6E43; --indigo:#5B6B8A; --indigo-deep:#44516D;
+    --gold:#B89968; --gold-deep:#9A7D4E;
+    --line-soft:rgba(42,38,34,.12);
+    /* shadcn aliases — mapped to semantics exactly like the repo, so dark flips for free */
+    --primary:var(--ink); --primary-foreground:var(--paper);
+    --secondary:var(--paper-deep); --secondary-foreground:var(--ink);
+    --muted:var(--paper-deep); --muted-foreground:var(--ink-muted);
+    --background:var(--paper); --foreground:var(--ink);
+    --card-surface:var(--paper-warm); --card-foreground:var(--ink);
+    --border-soft:var(--line-soft); --ring:var(--ink);
+    --destructive:var(--terracotta-deep); --text-accent:var(--terracotta-deep);
+    --font-display:'Fraunces', Georgia, serif;
+    --fraunces-text:'opsz' 24,'SOFT' 50;
+  }
+  /* Re-declare the shadcn aliases on the theme-scope element so their var()
+     references re-resolve against the card's DARK semantic tokens (custom
+     properties substitute at the declaring element — the repo dodges this
+     because data-theme sits on :root, the same element the aliases live on). */
+  .sp-grid [data-theme] {
+    --primary:var(--ink); --primary-foreground:var(--paper);
+    --secondary:var(--paper-deep); --secondary-foreground:var(--ink);
+    --muted:var(--paper-deep); --muted-foreground:var(--ink-muted);
+    --background:var(--paper); --foreground:var(--ink);
+    --card-surface:var(--paper-warm); --card-foreground:var(--ink);
+    --border-soft:var(--line-soft); --ring:var(--ink);
+    --destructive:var(--terracotta-deep); --text-accent:var(--terracotta-deep);
+  }
+  /* Button — buttonVariants cva: rounded-lg(8px) h-8(32) px-2.5(10) gap-1.5 text-sm(13.6) font-medium(500) */
+  .qp-btn { display:inline-flex; align-items:center; justify-content:center; gap:6px; height:32px; padding:0 10px; border:1px solid transparent; border-radius:8px; font-family:var(--font-body); font-weight:500; font-size:13.6px; line-height:1; white-space:nowrap; cursor:pointer; transition:background .2s cubic-bezier(.4,0,.2,1), color .2s cubic-bezier(.4,0,.2,1), border-color .2s cubic-bezier(.4,0,.2,1), box-shadow .2s cubic-bezier(.4,0,.2,1); }
+  .qp-btn:active { transform:translateY(1px); }
+  .qp-btn:focus-visible { outline:none; border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent); }
+  .qp-btn__i { width:16px; height:16px; display:inline-block; }
+  .qp-btn--default { background:var(--primary); color:var(--primary-foreground); }
+  .qp-btn--default:hover { background:color-mix(in srgb, var(--primary) 80%, transparent); }
+  .qp-btn--secondary { background:var(--secondary); color:var(--secondary-foreground); }
+  .qp-btn--secondary:hover { background:color-mix(in oklch, var(--secondary), var(--foreground) 5%); }
+  .qp-btn--outline { border-color:var(--border-soft); background:var(--background); color:var(--foreground); }
+  .qp-btn--outline:hover { background:var(--muted); }
+  .qp-btn--ghost { background:transparent; color:var(--foreground); }
+  .qp-btn--ghost:hover { background:var(--muted); }
+  .qp-btn--destructive { background:color-mix(in srgb, var(--destructive) 10%, transparent); color:var(--destructive); }
+  .qp-btn--destructive:hover { background:color-mix(in srgb, var(--destructive) 20%, transparent); }
+  .qp-btn--link { height:auto; padding:0; background:transparent; color:var(--text-accent); text-underline-offset:4px; }
+  .qp-btn--link:hover { text-decoration:underline; }
+  /* Badge — badgeVariants cva: rounded-4xl(40px pill) h-5(20) px-2(8) py-0.5(2) gap-1 text-xs(12) font-medium */
+  .qp-badge { display:inline-flex; align-items:center; justify-content:center; gap:4px; height:20px; padding:2px 8px; border:1px solid transparent; border-radius:40px; font-family:var(--font-body); font-size:12px; font-weight:500; line-height:1; white-space:nowrap; }
+  .qp-badge--default { background:var(--primary); color:var(--primary-foreground); }
+  .qp-badge--secondary { background:var(--secondary); color:var(--secondary-foreground); }
+  .qp-badge--outline { border-color:var(--border-soft); color:var(--foreground); }
+  .qp-badge--destructive { background:color-mix(in srgb, var(--destructive) 10%, transparent); color:var(--destructive); }
+  /* Card — rounded-xl(16px) bg-card ring-1 ring-foreground/10, --card-spacing 1rem(16px) */
+  .qp-card { display:flex; flex-direction:column; gap:16px; overflow:hidden; border-radius:16px; background:var(--card-surface); color:var(--card-foreground); font-family:var(--font-body); font-size:13.6px; padding:16px 0; box-shadow:0 0 0 1px color-mix(in srgb, var(--foreground) 10%, transparent); }
+  .qp-card--media { padding-top:0; }
+  .qp-card:has(.qp-card__footer) { padding-bottom:0; } /* prod: has-data-[slot=card-footer]:pb-0 */
+  .qp-card__header { padding:0 16px; display:grid; gap:4px; }
+  .qp-card__title { font-family:var(--font-display); font-variation-settings:var(--fraunces-text); font-size:15.2px; line-height:1.375; font-weight:500; color:var(--ink); }
+  .qp-card__desc { font-size:13.6px; line-height:1.5; color:var(--muted-foreground); }
+  .qp-card__content { padding:0 16px; }
+  .qp-card__footer { display:flex; align-items:center; gap:12px; padding:16px; border-top:1px solid var(--border-soft); background:color-mix(in srgb, var(--muted) 50%, transparent); border-radius:0 0 16px 16px; }
+  /* Input / Label / Switch / Tabs / Slider / Kbd — values from quill-ds src/components/ui/*.tsx */
+  .sp-grid { --field-border:#8A7F6E; } /* --input → line-control */
+  .qp-label { display:flex; align-items:center; gap:8px; font-family:var(--font-body); font-size:13.6px; line-height:1; font-weight:500; color:var(--foreground); }
+  .qp-input { height:32px; width:100%; min-width:0; box-sizing:border-box; border-radius:8px; border:1px solid var(--field-border); background:transparent; padding:4px 10px; font-family:var(--font-body); font-size:13.6px; color:var(--foreground); outline:none; transition:border-color .2s cubic-bezier(.4,0,.2,1), box-shadow .2s cubic-bezier(.4,0,.2,1); }
+  .qp-input::placeholder { color:var(--muted-foreground); }
+  .qp-input:focus-visible { outline:none; border-color:var(--ring); box-shadow:0 0 0 3px color-mix(in srgb, var(--ring) 50%, transparent); }
+  .qp-switch { position:relative; display:inline-flex; align-items:center; flex:none; height:18.4px; width:32px; border-radius:999px; border:1px solid transparent; padding:0; cursor:pointer; background:var(--field-border); transition:background .2s cubic-bezier(.4,0,.2,1); }
+  .qp-switch[aria-checked="true"] { background:var(--primary); }
+  .qp-switch__thumb { display:block; width:16px; height:16px; border-radius:999px; background:var(--background); box-shadow:0 2px 4px -1px rgba(42,38,34,.14); transition:transform .2s cubic-bezier(.4,0,.2,1); transform:translateX(0); }
+  .qp-switch[aria-checked="true"] .qp-switch__thumb { transform:translateX(14px); }
+  .qp-tabs { display:flex; width:100%; align-items:center; height:32px; border-radius:8px; padding:3px; background:var(--muted); color:var(--muted-foreground); box-sizing:border-box; }
+  .qp-tab { flex:1; display:inline-flex; align-items:center; justify-content:center; height:calc(100% - 1px); border-radius:6px; border:1px solid transparent; padding:2px 6px; font-family:var(--font-body); font-size:13.6px; font-weight:500; color:color-mix(in srgb, var(--foreground) 75%, transparent); background:transparent; cursor:pointer; transition:color .2s cubic-bezier(.4,0,.2,1), background .2s cubic-bezier(.4,0,.2,1); }
+  .qp-tab:hover { color:var(--foreground); }
+  .qp-tab[aria-selected="true"] { background:var(--background); color:var(--foreground); box-shadow:0 2px 4px -1px rgba(42,38,34,.14), 0 1px 2px -1px rgba(42,38,34,.08); }
+  .qp-slider { position:relative; display:flex; align-items:center; width:100%; height:12px; cursor:pointer; touch-action:none; }
+  .qp-slider:focus-visible { outline:2px solid #44516D; outline-offset:4px; border-radius:2px; }
+  .qp-slider__track { position:relative; flex:1; height:4px; border-radius:999px; background:var(--field-border); overflow:hidden; }
+  .qp-slider__range { position:absolute; left:0; top:0; bottom:0; background:var(--primary); }
+  .qp-slider__thumb { position:absolute; top:0; width:12px; height:12px; border-radius:999px; border:1px solid var(--ring); background:var(--background); transform:translateX(-50%); box-sizing:border-box; }
+  .qp-kbd { display:inline-flex; align-items:center; justify-content:center; height:20px; min-width:20px; border-radius:4px; background:var(--muted); padding:0 4px; font-family:var(--font-body); font-size:12px; font-weight:500; color:var(--muted-foreground); }
   /* .sp-card only adds the brand grain texture; surface, border, radius,
      shadow and padding come from the real DS Card component (.ql-card). */
   .sp-card { overflow: hidden; background-image: var(--grain-noise); background-blend-mode: multiply; }
@@ -83,19 +190,22 @@
   }
   @media (max-width: 540px) { .rp-navlinks { display: none; } }
 </style>
-<script src="assets/cal-embed.js"></script>
+<script defer src="assets/cal-embed.js"></script>
 </helmet>
 
 <!-- ====================== NAV ====================== -->
+<a class="rp-skip" href="#main">Skip to main content</a>
 <header style="position:sticky; top:0; z-index:40; background:rgba(230,233,235,.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line-faint);">
   <div class="rp-wrap" style="display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;">
     <a href="Home.dc.html#top" style="display:flex; align-items:center; gap:4px; text-decoration:none;"><svg viewBox="3.5 6 25 20.5" width="26" height="21" aria-hidden="true" style="display:block; flex:none; color:var(--rp-accent, #5B6B8A);"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7212 8C21.5684 8 22.3697 8.07754 23.1245 8.23242C23.8794 8.38734 24.5347 8.65861 25.0894 9.0459C25.6591 9.41763 26.1058 9.9287 26.4292 10.5791C26.7681 11.2143 26.938 12.0201 26.938 12.9961C26.938 13.9565 26.7832 14.7625 26.4751 15.4131C26.167 16.0635 25.7437 16.5825 25.2046 16.9697C24.6654 17.357 24.026 17.6353 23.2866 17.8057C22.5472 17.9606 21.746 18.0381 20.8833 18.0381H18.2485V24.4521H14.5034V17.876H12.7388L9.34717 24.4521H5.06201L9.18701 17.5039C8.04134 17.287 7.17053 16.7761 6.57471 15.9707C5.97887 15.1497 5.68117 14.1579 5.68115 12.9961C5.68115 12.0356 5.84894 11.2377 6.18506 10.6025C6.50586 9.952 6.94898 9.44111 7.51416 9.06934C8.06417 8.68205 8.71378 8.41077 9.4624 8.25586C10.1956 8.08551 10.9745 8.00002 11.7993 8H20.7212ZM18.2485 14.9707H20.6519C20.9754 14.9707 21.284 14.9399 21.5767 14.8779C21.8847 14.816 22.1542 14.7155 22.3853 14.5762C22.6317 14.4213 22.8247 14.2195 22.9634 13.9717C23.1173 13.7084 23.1938 13.3832 23.1938 12.9961C23.1938 12.578 23.0941 12.2449 22.894 11.9971C22.7092 11.7337 22.4619 11.532 22.1538 11.3926C21.8612 11.2533 21.5302 11.1677 21.1606 11.1367C20.7909 11.0902 20.4361 11.0674 20.0972 11.0674H18.2485V14.9707ZM12.1665 11.0674C11.8458 11.0674 11.5172 11.0903 11.1812 11.1367C10.8452 11.1832 10.5473 11.2767 10.2876 11.416C10.0279 11.5399 9.81308 11.7258 9.64502 11.9736C9.47708 12.2214 9.39308 12.5546 9.39307 12.9727C9.39307 13.4218 9.49236 13.7707 9.69092 14.0186C9.87426 14.2664 10.1116 14.4522 10.4019 14.5762C10.6921 14.6846 11.0206 14.7542 11.3872 14.7852C11.7384 14.8006 12.0743 14.8086 12.395 14.8086H14.5034V11.0674H12.1665Z" fill="currentColor"></path></svg><span class="rp-shimmer" style="font-family:'Fraunces',serif; font-weight:400; font-size:19px; letter-spacing:-.01em; color:var(--ink);">Ryan Phillips</span></a>
-    <div class="rp-navlinks">
+    <div class="rp-navlinks" role="navigation" aria-label="Primary">
       <a class="rp-navlink" href="Home.dc.html#work">Work</a><a class="rp-navlink" href="Home.dc.html#process">Process</a><a class="rp-navlink" href="Home.dc.html#about">About</a><a class="rp-navlink" href="Home.dc.html#testimonials">Endorsements</a><a class="rp-navlink" href="Home.dc.html#contact">Contact</a>
-      <span class="rp-nav-extra"><a href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" class="rp-btn-outline" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:13.6px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--ink); background:transparent; color:var(--ink); border-radius:4px; padding:8px 16px;">Resumé</a></span>
+      <span class="rp-nav-extra"><a href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" class="rp-btn-outline" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:13.6px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--ink); background:transparent; color:var(--ink); border-radius:4px; padding:8px 16px;">Resumé<span class="sr-only"> (opens in new tab)</span></a></span>
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <!-- ====================== MASTHEAD ====================== -->
 <section id="top" style="position:relative;">
@@ -118,8 +228,8 @@
       <div style="max-width:640px;">
         <div style="font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-muted);">№ S·01 · Currently building</div>
         <h2 style="font-family:'Fraunces',serif; font-weight:300; font-variation-settings:'opsz' 144,'SOFT' 50; font-size:clamp(28px,4.4vw,42px); line-height:1.1; letter-spacing:-.025em; color:var(--ink); margin:12px 0 0;">Quill Design System</h2>
-        <p style="font-family:'Raleway',sans-serif; font-size:16px; line-height:1.75; color:var(--ink-soft); margin:18px 0 0;">Quill is a small design system with the voice of a naturalist’s sketchbook: pressed-cream papers, sepia inks, and four pigments used sparingly, like colored pencils. Everything is meant to feel printed and kept, never generated.</p>
-        <p style="font-family:'Raleway',sans-serif; font-size:16px; line-height:1.75; color:var(--ink-soft); margin:14px 0 0;">It ships as real code: design tokens in CSS, React components documented in Storybook, a warm dark mode, and a marketplace demo built entirely from the system.</p>
+        <p style="font-family:'Raleway',sans-serif; font-size:16px; line-height:1.75; color:var(--ink-soft); margin:18px 0 0;">Quill is a design system with the language of a creative naturalist: using pressed-cream digital paper, sepia inks, and four pigments used sparingly, like colored pencils. Everything is meant to feel printed, kept and human.</p>
+        <p style="font-family:'Raleway',sans-serif; font-size:16px; line-height:1.75; color:var(--ink-soft); margin:14px 0 0;">It ships as real code: design tokens in CSS, React components documented in Storybook and themes that come in a warm light mode &amp; walnut-toned dark mode.</p>
       </div>
       <div style="display:flex; flex-direction:column; align-items:flex-start; gap:16px;">
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
@@ -136,15 +246,15 @@
     <div class="sp-grid" style="margin-top:clamp(30px,4vw,44px);">
 
       <!-- TYPE -->
-      <div class="ql-card sp-card" style="grid-column: span 7;">
+      <div class="qp-card sp-card" style="grid-column: span 7; padding-left:16px; padding-right:16px; gap:0;">
         <div class="ql-eyebrow ql-eyebrow--muted">Two voices</div>
-        <div style="font-family:var(--font-display); font-weight:300; font-variation-settings:var(--fraunces-display); font-size:clamp(30px,4vw,44px); line-height:1.1; letter-spacing:-.03em; color:var(--ink); margin-top:16px;">Tools, made by <em style="font-style:italic; color:var(--terracotta); font-variation-settings:var(--fraunces-accent);">hand</em>.</div>
+        <div style="font-family:var(--font-display); font-weight:300; font-variation-settings:var(--fraunces-display); font-size:clamp(30px,4vw,44px); line-height:1.1; letter-spacing:-.03em; color:var(--ink); margin-top:16px;">Tools, made by <em style="font-style:italic; color:var(--terracotta); font-variation-settings:var(--fraunces-accent);">people</em>.</div>
         <div style="font-family:var(--font-display); font-style:italic; font-size:14.5px; color:var(--ink-muted); margin-top:10px;">Fraunces, set light, tight, and large · № 001</div>
-        <p style="font-family:var(--font-body); font-size:14.5px; line-height:1.7; color:var(--ink-soft); margin:16px 0 0; max-width:46ch;">Inter carries body and UI at a patient 1.7 line height. There is no pure white and no pure black anywhere. Everything sits on paper.</p>
+        <p style="font-family:var(--font-body); font-size:14.5px; line-height:1.7; color:var(--ink-soft); margin:16px 0 0; max-width:46ch;">Raleway carries body and UI at a 1.7 line height. There is no pure white and no pure black anywhere. Everything sits on digital paper.</p>
       </div>
 
       <!-- PALETTE -->
-      <div class="ql-card sp-card" style="grid-column: span 5;">
+      <div class="qp-card sp-card" style="grid-column: span 5; padding-left:16px; padding-right:16px; gap:0;">
         <div class="ql-eyebrow ql-eyebrow--muted">Papers, inks &amp; pigments</div>
         <div style="display:flex; flex-direction:column; gap:14px; margin-top:18px;">
           <div style="display:flex; align-items:center; gap:10px;">
@@ -171,40 +281,70 @@
       </div>
 
       <!-- COMPONENTS -->
-      <div class="ql-card sp-card" style="grid-column: span 7;">
-        <div class="ql-eyebrow ql-eyebrow--muted">Live components</div>
-        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px;">
-          <button class="ql-btn ql-btn--primary">Save me a deck</button>
-          <button class="ql-btn ql-btn--secondary">Browse the drawings</button>
-          <button class="ql-btn ql-btn--accent">View card<span class="ql-btn__arrow" aria-hidden="true">→</span></button>
-          <button class="ql-btn ql-btn--ghost">Not today</button>
+      <div class="qp-card sp-card" style="grid-column: span 7; padding-left:16px; padding-right:16px; gap:0;">
+        <div class="ql-eyebrow ql-eyebrow--muted">Button &amp; Badge variants</div>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:20px;">
+          <button class="qp-btn qp-btn--default">Default</button>
+          <button class="qp-btn qp-btn--secondary">Secondary</button>
+          <button class="qp-btn qp-btn--outline">Outline</button>
+          <button class="qp-btn qp-btn--ghost">Ghost</button>
+          <button class="qp-btn qp-btn--destructive">Destructive</button>
+          <button class="qp-btn qp-btn--link">Link</button>
         </div>
         <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:20px;">
-          <span class="ql-badge ql-badge--everyday">Everyday</span>
-          <span class="ql-badge ql-badge--featured">Featured</span>
-          <span class="ql-badge ql-badge--signed">Signed</span>
-          <span class="ql-badge ql-badge--heirloom">Heirloom</span>
+          <span class="qp-badge qp-badge--default">Default</span>
+          <span class="qp-badge qp-badge--secondary">Secondary</span>
+          <span class="qp-badge qp-badge--outline">Outline</span>
+          <span class="qp-badge qp-badge--destructive">Destructive</span>
         </div>
-        <div style="font-family:var(--font-display); font-style:italic; font-size:13.5px; color:var(--ink-muted); margin-top:20px;">tiers named after printmaking, not pricing plans</div>
+        <div style="font-family:var(--font-display); font-style:italic; font-size:13.5px; color:var(--ink-muted); margin-top:20px;">The shipped variants</div>
       </div>
 
-      <!-- COLLECTIBLE CARD -->
-      <div class="ql-card sp-card" style="grid-column: span 5; grid-row: span 2; display:flex; flex-direction:column; gap:16px;">
-        <div class="ql-eyebrow ql-eyebrow--muted">The collectible card</div>
-        <article class="ql-productcard">
-          <div class="ql-productcard__portrait"><img src="assets/quill/critique-companion.jpg" alt="Critique Companion"><div class="ql-productcard__no">№&nbsp;001</div></div>
-          <h3 class="ql-productcard__title">Critique Companion</h3>
-          <p class="ql-productcard__desc">The thoughtful reviewer who sees what’s working before naming what isn’t.</p>
-          <div class="ql-productcard__footer">
-            <div class="ql-productcard__tags"><span>Design</span><span>·</span><span class="ql-badge ql-badge--heirloom">Heirloom</span></div>
-            <div class="ql-productcard__action">View card <span aria-hidden="true">→</span></div>
+      <!-- CARD + CONTROLS — Card (Default story) plus Input/Label/Switch and Tabs/Slider/Kbd from src/components/ui -->
+      <div style="grid-column: span 5; grid-row: span 2; display:flex; flex-direction:column; gap:22px;">
+        <div class="qp-card sp-card">
+          <div class="qp-card__header">
+            <div class="qp-card__title">Watercolor Basics</div>
+            <div class="qp-card__desc">Learn to mix, layer, and blend watercolor paints.</div>
           </div>
-        </article>
-        <div style="font-family:var(--font-display); font-style:italic; font-size:13.5px; color:var(--ink-muted);">Example card component w/ image</div>
+          <div class="qp-card__content" style="color:var(--ink-soft);">12 lessons · 3h 20m · Beginner</div>
+          <div class="qp-card__footer">
+            <button class="qp-btn qp-btn--default" style="width:100%;">Start course</button>
+          </div>
+        </div>
+        <div class="qp-card sp-card" style="flex:1;">
+          <div class="qp-card__content" style="display:grid; gap:6px;">
+            <label class="qp-label" for="qp-demo-email">Email</label>
+            <input class="qp-input" id="qp-demo-email" type="email" placeholder="your@email.com">
+          </div>
+          <div class="qp-card__content" style="display:flex; align-items:center; gap:10px;">
+            <button class="qp-switch" role="switch" aria-checked="{{ demoSwitch }}" onClick="{{ toggleDemoSwitch }}" aria-label="Email me new drawings"><span class="qp-switch__thumb"></span></button>
+            <span style="font-family:var(--font-body); font-size:13.6px; color:var(--ink-soft);">Email me new drawings</span>
+          </div>
+        </div>
+        <div class="qp-card sp-card">
+          <div class="qp-card__content">
+            <div class="qp-tabs" role="tablist" aria-label="Course sections">
+              <button class="qp-tab" role="tab" aria-selected="{{ tab0 }}" onClick="{{ pickTab0 }}">Overview</button>
+              <button class="qp-tab" role="tab" aria-selected="{{ tab1 }}" onClick="{{ pickTab1 }}">Lessons</button>
+              <button class="qp-tab" role="tab" aria-selected="{{ tab2 }}" onClick="{{ pickTab2 }}">Notes</button>
+            </div>
+          </div>
+          <div class="qp-card__content" style="display:flex; align-items:center; gap:4px; font-family:var(--font-body); font-size:13.6px;">
+            <span style="color:var(--ink-soft); margin-right:auto;">Brush opacity</span>
+            <span style="font-weight:500; color:var(--ink);">{{ demoSliderLabel }}</span>
+          </div>
+          <div class="qp-card__content">
+            <div class="qp-slider" role="slider" tabindex="0" aria-label="Brush opacity" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ demoSlider }}" onPointerDown="{{ sliderDown }}" onKeyDown="{{ sliderKey }}">
+              <div class="qp-slider__track"><div class="qp-slider__range" style="{{ sliderRangeStyle }}"></div></div>
+              <div class="qp-slider__thumb" style="{{ sliderThumbStyle }}"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- DARK MODE -->
-      <div class="ql-card sp-card" data-theme="{{ cardTheme }}" style="grid-column: span 7; --surface-card: var(--paper-warm); --border-card: var(--line-soft);">
+      <div class="qp-card sp-card" data-theme="{{ cardTheme }}" style="grid-column: span 7; padding-left:16px; padding-right:16px; gap:0;">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
           <div class="ql-eyebrow ql-eyebrow--muted">After dark</div>
           <button class="sp-switch" role="switch" aria-checked="{{ isDark }}" onClick="{{ toggleCardTheme }}">
@@ -214,18 +354,20 @@
         </div>
         <div style="font-family:var(--font-display); font-weight:300; font-variation-settings:var(--fraunces-display); font-size:clamp(24px,3vw,32px); line-height:1.15; letter-spacing:-.02em; color:var(--ink); margin-top:14px; max-width:22ch;">The warmth carries into the <em style="font-style:italic; color:var(--terracotta); font-variation-settings:var(--fraunces-accent);">evening</em>.</div>
         <p style="font-family:var(--font-body); font-size:14px; line-height:1.65; color:var(--ink-soft); margin:12px 0 0; max-width:52ch;">Cream paper becomes dark walnut, the pigments lift to stay legible, and the grain still shows. One attribute flips the whole token layer.</p>
-        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:18px;">
-          <button class="ql-btn ql-btn--accent">View card<span class="ql-btn__arrow" aria-hidden="true">→</span></button>
-          <span class="ql-badge ql-badge--heirloom">Heirloom</span>
+        <div style="display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin-top:auto; padding-top:18px;">
+          <button class="qp-btn qp-btn--default">View card <span aria-hidden="true">→</span></button>
+          <button class="qp-btn qp-btn--secondary">Design</button>
         </div>
       </div>
 
     </div>
-    <div style="font-family:var(--rp-hand,'Caveat',cursive); font-size:19px; color:var(--ink-muted); margin-top:20px; transform:rotate(-.8deg);">live components straight from the system, not screenshots →</div>
+    <div style="font-family:var(--rp-hand,'Caveat',cursive); font-size:19px; color:var(--ink-muted); margin-top:20px; transform:rotate(-.8deg);">Live components straight from Quill DS not screenshots →</div>
   </div>
 </section>
 
 <!-- ====================== FOOTER ====================== -->
+</main>
+
 <footer class="rp-panel" style="position:relative; background:#ECEEF0;">
   <div class="rp-wrap" style="padding-top:clamp(56px,8vw,84px); padding-bottom:44px; border-top:1px solid var(--line-faint); text-align:center;">
     <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--rp-accent, #5B6B8A); margin-bottom:20px;"><span style="width:30px; height:1px; background:currentColor; opacity:.5;"></span>Get in touch<span style="width:30px; height:1px; background:currentColor; opacity:.5;"></span></div>
@@ -235,7 +377,7 @@
       <a href="https://cal.com/ryanphillips/30min" data-cal-link="ryanphillips/30min" data-cal-namespace="30min" class="rp-btn-accent" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:15.2px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--rp-accent, #5B6B8A); background:var(--rp-accent, #5B6B8A); color:#F5EDDD; border-radius:4px; padding:16px 32px;">Book a call</a>
     </div>
     <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:540px; margin:44px auto 0;"><span style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(42,38,34,.16),transparent);"></span><span style="font-family:var(--rp-hand, 'Caveat', cursive); font-style:var(--rp-hand-style, normal); font-size:19px; color:var(--ink-muted); white-space:nowrap;">let’s talk</span><span style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(42,38,34,.16),transparent);"></span></div>
-    <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 20px; margin-top:24px; font-family:'Raleway',sans-serif; font-size:14px;"><a class="rp-navlink" href="mailto:ryanwesphillips@gmail.com">Email</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://www.linkedin.com/in/ryanphillipsdesign/" target="_blank" rel="noopener">LinkedIn</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://dribbble.com/ryanphillips" target="_blank" rel="noopener">Dribbble</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Resumé</a></div>
+    <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 20px; margin-top:24px; font-family:'Raleway',sans-serif; font-size:14px;"><a class="rp-navlink" href="mailto:ryanwesphillips@gmail.com">Email</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://www.linkedin.com/in/ryanphillipsdesign/" target="_blank" rel="noopener">LinkedIn</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://dribbble.com/ryanphillips" target="_blank" rel="noopener">Dribbble</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Resumé<span class="sr-only"> (opens in new tab)</span></a></div>
     <div style="display:flex; align-items:center; justify-content:center; gap:9px; margin-top:34px; padding-top:24px; border-top:1px solid var(--line-faint);">
       <svg viewBox="3.5 6 25 20.5" width="19" height="15" aria-hidden="true" style="display:block; flex:none; color:var(--rp-accent, #5B6B8A);"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7212 8C21.5684 8 22.3697 8.07754 23.1245 8.23242C23.8794 8.38734 24.5347 8.65861 25.0894 9.0459C25.6591 9.41763 26.1058 9.9287 26.4292 10.5791C26.7681 11.2143 26.938 12.0201 26.938 12.9961C26.938 13.9565 26.7832 14.7625 26.4751 15.4131C26.167 16.0635 25.7437 16.5825 25.2046 16.9697C24.6654 17.357 24.026 17.6353 23.2866 17.8057C22.5472 17.9606 21.746 18.0381 20.8833 18.0381H18.2485V24.4521H14.5034V17.876H12.7388L9.34717 24.4521H5.06201L9.18701 17.5039C8.04134 17.287 7.17053 16.7761 6.57471 15.9707C5.97887 15.1497 5.68117 14.1579 5.68115 12.9961C5.68115 12.0356 5.84894 11.2377 6.18506 10.6025C6.50586 9.952 6.94898 9.44111 7.51416 9.06934C8.06417 8.68205 8.71378 8.41077 9.4624 8.25586C10.1956 8.08551 10.9745 8.00002 11.7993 8H20.7212ZM18.2485 14.9707H20.6519C20.9754 14.9707 21.284 14.9399 21.5767 14.8779C21.8847 14.816 22.1542 14.7155 22.3853 14.5762C22.6317 14.4213 22.8247 14.2195 22.9634 13.9717C23.1173 13.7084 23.1938 13.3832 23.1938 12.9961C23.1938 12.578 23.0941 12.2449 22.894 11.9971C22.7092 11.7337 22.4619 11.532 22.1538 11.3926C21.8612 11.2533 21.5302 11.1677 21.1606 11.1367C20.7909 11.0902 20.4361 11.0674 20.0972 11.0674H18.2485V14.9707ZM12.1665 11.0674C11.8458 11.0674 11.5172 11.0903 11.1812 11.1367C10.8452 11.1832 10.5473 11.2767 10.2876 11.416C10.0279 11.5399 9.81308 11.7258 9.64502 11.9736C9.47708 12.2214 9.39308 12.5546 9.39307 12.9727C9.39307 13.4218 9.49236 13.7707 9.69092 14.0186C9.87426 14.2664 10.1116 14.4522 10.4019 14.5762C10.6921 14.6846 11.0206 14.7542 11.3872 14.7852C11.7384 14.8006 12.0743 14.8086 12.395 14.8086H14.5034V11.0674H12.1665Z" fill="currentColor"></path></svg>
       <span class="rp-shimmer" style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Ryan Phillips</span>
@@ -246,14 +388,43 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { cardTheme: 'dark' };
+  state = { cardTheme: 'dark', demoSwitch: true, demoTab: 0, demoSlider: 40 };
   renderVals() {
     const t = this.state.cardTheme;
     return {
       cardTheme: t,
       isDark: t === 'dark',
       isLight: t === 'light',
-      toggleCardTheme: () => this.setState((s) => ({ cardTheme: s.cardTheme === 'dark' ? 'light' : 'dark' }))
+      toggleCardTheme: () => this.setState((s) => ({ cardTheme: s.cardTheme === 'dark' ? 'light' : 'dark' })),
+      demoSwitch: this.state.demoSwitch,
+      toggleDemoSwitch: () => this.setState((s) => ({ demoSwitch: !s.demoSwitch })),
+      tab0: this.state.demoTab === 0,
+      tab1: this.state.demoTab === 1,
+      tab2: this.state.demoTab === 2,
+      pickTab0: () => this.setState({ demoTab: 0 }),
+      pickTab1: () => this.setState({ demoTab: 1 }),
+      pickTab2: () => this.setState({ demoTab: 2 }),
+      demoSlider: this.state.demoSlider,
+      demoSliderLabel: this.state.demoSlider + '%',
+      sliderRangeStyle: { width: this.state.demoSlider + '%' },
+      sliderThumbStyle: { left: this.state.demoSlider + '%' },
+      sliderDown: (e) => {
+        e.preventDefault();
+        const rect = e.currentTarget.getBoundingClientRect();
+        const set = (x) => {
+          const p = Math.round(((x - rect.left) / rect.width) * 100);
+          this.setState({ demoSlider: Math.max(0, Math.min(100, p)) });
+        };
+        set(e.clientX);
+        const move = (ev) => set(ev.clientX);
+        const up = () => { window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up); };
+        window.addEventListener('pointermove', move);
+        window.addEventListener('pointerup', up);
+      },
+      sliderKey: (e) => {
+        const d = (e.key === 'ArrowRight' || e.key === 'ArrowUp') ? 5 : (e.key === 'ArrowLeft' || e.key === 'ArrowDown') ? -5 : 0;
+        if (d) { e.preventDefault(); this.setState((s) => ({ demoSlider: Math.max(0, Math.min(100, s.demoSlider + d)) })); }
+      }
     };
   }
 }

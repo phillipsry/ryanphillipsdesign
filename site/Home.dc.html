@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,6 +41,11 @@
   html, body { margin: 0; }
   body { background-color: var(--rp-ground, #E6E9EB); background-image: var(--grain-noise); background-attachment: fixed; background-blend-mode: multiply; --font-body: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; --rp-accent: #5B6B8A; }
   ::selection { background: rgba(91,107,138,.20); }
+  body { --ink-muted: #6E6559; --rp-accent: #56658A; } /* WCAG AA contrast-safe values */
+  a:focus-visible, button:focus-visible { outline: 2px solid #44516D; outline-offset: 2px; border-radius: 2px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .rp-skip { position: absolute; left: 16px; top: -60px; z-index: 100; background: var(--ink); color: #F4F5F6; font-family: 'Raleway', sans-serif; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 0 0 6px 6px; text-decoration: none; transition: top .2s cubic-bezier(.4,0,.2,1); }
+  .rp-skip:focus { top: 0; }
   em[data-ul]{ position:relative; }
   em[data-ul]::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:9px; background-color:var(--rp-accent,#5B6B8A); opacity:.82; pointer-events:none; -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='118' height='12' viewBox='0 0 118 12'%3E%3Cpath d='M2 7 Q 30 2 60 6 T 116 5' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 9px; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='118' height='12' viewBox='0 0 118 12'%3E%3Cpath d='M2 7 Q 30 2 60 6 T 116 5' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center / 100% 9px; }
   /* Paint transparent content sections with their own light ground (+ same fixed grain) so the
@@ -132,21 +137,24 @@
     }, true);
   })();
 </script>
-<script src="assets/cal-embed.js"></script>
+<script defer src="assets/cal-embed.js"></script>
 </helmet>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#E6E9EB"></rect><text x="50" y="66" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#5B6B8A">R</text></svg></template>
 
 <!-- ====================== NAV ====================== -->
+<a class="rp-skip" href="#main">Skip to main content</a>
 <header style="position:sticky; top:0; z-index:40; background:color-mix(in srgb, var(--rp-ground, #E6E9EB) 84%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line-faint);">
   <div class="rp-wrap" style="display:flex; align-items:center; justify-content:space-between; padding-top:18px; padding-bottom:18px;">
     <a href="#top" style="display: flex; align-items: center; gap: 4px; text-decoration: none"><svg viewBox="3.5 6 25 20.5" width="26" height="21" aria-hidden="true" style="display:block; flex:none; color:var(--rp-accent, #5B6B8A);"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7212 8C21.5684 8 22.3697 8.07754 23.1245 8.23242C23.8794 8.38734 24.5347 8.65861 25.0894 9.0459C25.6591 9.41763 26.1058 9.9287 26.4292 10.5791C26.7681 11.2143 26.938 12.0201 26.938 12.9961C26.938 13.9565 26.7832 14.7625 26.4751 15.4131C26.167 16.0635 25.7437 16.5825 25.2046 16.9697C24.6654 17.357 24.026 17.6353 23.2866 17.8057C22.5472 17.9606 21.746 18.0381 20.8833 18.0381H18.2485V24.4521H14.5034V17.876H12.7388L9.34717 24.4521H5.06201L9.18701 17.5039C8.04134 17.287 7.17053 16.7761 6.57471 15.9707C5.97887 15.1497 5.68117 14.1579 5.68115 12.9961C5.68115 12.0356 5.84894 11.2377 6.18506 10.6025C6.50586 9.952 6.94898 9.44111 7.51416 9.06934C8.06417 8.68205 8.71378 8.41077 9.4624 8.25586C10.1956 8.08551 10.9745 8.00002 11.7993 8H20.7212ZM18.2485 14.9707H20.6519C20.9754 14.9707 21.284 14.9399 21.5767 14.8779C21.8847 14.816 22.1542 14.7155 22.3853 14.5762C22.6317 14.4213 22.8247 14.2195 22.9634 13.9717C23.1173 13.7084 23.1938 13.3832 23.1938 12.9961C23.1938 12.578 23.0941 12.2449 22.894 11.9971C22.7092 11.7337 22.4619 11.532 22.1538 11.3926C21.8612 11.2533 21.5302 11.1677 21.1606 11.1367C20.7909 11.0902 20.4361 11.0674 20.0972 11.0674H18.2485V14.9707ZM12.1665 11.0674C11.8458 11.0674 11.5172 11.0903 11.1812 11.1367C10.8452 11.1832 10.5473 11.2767 10.2876 11.416C10.0279 11.5399 9.81308 11.7258 9.64502 11.9736C9.47708 12.2214 9.39308 12.5546 9.39307 12.9727C9.39307 13.4218 9.49236 13.7707 9.69092 14.0186C9.87426 14.2664 10.1116 14.4522 10.4019 14.5762C10.6921 14.6846 11.0206 14.7542 11.3872 14.7852C11.7384 14.8006 12.0743 14.8086 12.395 14.8086H14.5034V11.0674H12.1665Z" fill="currentColor"></path></svg><span class="rp-shimmer" style="font-family:'Fraunces',serif; font-weight:400; font-size:22px; letter-spacing:-.02em; color:var(--ink);">Ryan Phillips</span></a>
-    <div class="rp-navlinks">
+    <div class="rp-navlinks" role="navigation" aria-label="Primary">
       <a class="rp-navlink" href="#work">Work</a><a class="rp-navlink" href="#process">Process</a><a class="rp-navlink" href="#about">About</a><a class="rp-navlink" href="#testimonials">Endorsements</a><a class="rp-navlink" href="#contact">Contact</a>
-      <span class="rp-nav-extra"><a href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" class="rp-btn-outline" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:13.6px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--ink); background:transparent; color:var(--ink); border-radius:4px; padding:8px 16px;">Resumé</a></span>
+      <span class="rp-nav-extra"><a href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener" class="rp-btn-outline" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:13.6px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--ink); background:transparent; color:var(--ink); border-radius:4px; padding:8px 16px;">Resumé<span class="sr-only"> (opens in new tab)</span></a></span>
     </div>
   </div>
 </header>
+
+<main id="main">
 
 <!-- ====================== HERO ====================== -->
 <section id="top" style="position:relative;">
@@ -385,6 +393,8 @@
 </section>
 
 <!-- ====================== CONTACT / FOOTER ====================== -->
+</main>
+
 <footer id="contact" style="position:relative; background:var(--rp-panel, #ECEEF0);">
   <div class="rp-wrap" style="padding-top:clamp(56px,8vw,84px); padding-bottom:44px; border-top:1px solid var(--line-faint); text-align:center;">
     <div style="display:inline-flex; align-items:center; gap:12px; font-family:'Raleway',sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--rp-accent, #5B6B8A); margin-bottom:20px;"><span style="width:30px; height:1px; background:currentColor; opacity:.5;"></span>Get in touch<span style="width:30px; height:1px; background:currentColor; opacity:.5;"></span></div>
@@ -394,7 +404,7 @@
       <a href="https://cal.com/ryanphillips/30min" data-cal-link="ryanphillips/30min" data-cal-namespace="30min" class="rp-btn-accent" style="display:inline-flex; align-items:center; justify-content:center; font-family:'Raleway',sans-serif; font-weight:500; font-size:15.2px; line-height:1; text-decoration:none; white-space:nowrap; cursor:pointer; border:1px solid var(--rp-accent, #5B6B8A); background:var(--rp-accent, #5B6B8A); color:#F5EDDD; border-radius:4px; padding:16px 32px;">Book a call</a>
     </div>
     <div style="display:flex; align-items:center; justify-content:center; gap:16px; max-width:540px; margin:44px auto 0;"><span style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(42,38,34,.16),transparent);"></span><span style="font-family:var(--rp-hand, 'Caveat', cursive); font-style:var(--rp-hand-style, normal); font-size:19px; color:var(--ink-muted); white-space:nowrap;">let’s talk</span><span style="flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(42,38,34,.16),transparent);"></span></div>
-    <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 20px; margin-top:24px; font-family:'Raleway',sans-serif; font-size:14px;"><a class="rp-navlink" href="mailto:ryanwesphillips@gmail.com">Email</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://www.linkedin.com/in/ryanphillipsdesign/" target="_blank" rel="noopener">LinkedIn</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://dribbble.com/ryanphillips" target="_blank" rel="noopener">Dribbble</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Resumé</a></div>
+    <div style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px 20px; margin-top:24px; font-family:'Raleway',sans-serif; font-size:14px;"><a class="rp-navlink" href="mailto:ryanwesphillips@gmail.com">Email</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://www.linkedin.com/in/ryanphillipsdesign/" target="_blank" rel="noopener">LinkedIn</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://dribbble.com/ryanphillips" target="_blank" rel="noopener">Dribbble</a><span style="color:var(--ink-muted); opacity:.45;">·</span><a class="rp-navlink" href="https://docs.google.com/document/d/1ZrsTcUfgjHz8ZA9xDD5Lyeqz7vU_Vqvm/edit?usp=sharing&amp;ouid=112879387195063490291&amp;rtpof=true&amp;sd=true" target="_blank" rel="noopener">Resumé<span class="sr-only"> (opens in new tab)</span></a></div>
     <div style="display:flex; align-items:center; justify-content:center; gap:9px; margin-top:34px; padding-top:24px; border-top:1px solid var(--line-faint);">
       <span style="display:inline-flex; align-items:center; gap:4px;"><svg viewBox="3.5 6 25 20.5" width="19" height="15" aria-hidden="true" style="display:block; flex:none; color:var(--rp-accent, #5B6B8A);"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.7212 8C21.5684 8 22.3697 8.07754 23.1245 8.23242C23.8794 8.38734 24.5347 8.65861 25.0894 9.0459C25.6591 9.41763 26.1058 9.9287 26.4292 10.5791C26.7681 11.2143 26.938 12.0201 26.938 12.9961C26.938 13.9565 26.7832 14.7625 26.4751 15.4131C26.167 16.0635 25.7437 16.5825 25.2046 16.9697C24.6654 17.357 24.026 17.6353 23.2866 17.8057C22.5472 17.9606 21.746 18.0381 20.8833 18.0381H18.2485V24.4521H14.5034V17.876H12.7388L9.34717 24.4521H5.06201L9.18701 17.5039C8.04134 17.287 7.17053 16.7761 6.57471 15.9707C5.97887 15.1497 5.68117 14.1579 5.68115 12.9961C5.68115 12.0356 5.84894 11.2377 6.18506 10.6025C6.50586 9.952 6.94898 9.44111 7.51416 9.06934C8.06417 8.68205 8.71378 8.41077 9.4624 8.25586C10.1956 8.08551 10.9745 8.00002 11.7993 8H20.7212ZM18.2485 14.9707H20.6519C20.9754 14.9707 21.284 14.9399 21.5767 14.8779C21.8847 14.816 22.1542 14.7155 22.3853 14.5762C22.6317 14.4213 22.8247 14.2195 22.9634 13.9717C23.1173 13.7084 23.1938 13.3832 23.1938 12.9961C23.1938 12.578 23.0941 12.2449 22.894 11.9971C22.7092 11.7337 22.4619 11.532 22.1538 11.3926C21.8612 11.2533 21.5302 11.1677 21.1606 11.1367C20.7909 11.0902 20.4361 11.0674 20.0972 11.0674H18.2485V14.9707ZM12.1665 11.0674C11.8458 11.0674 11.5172 11.0903 11.1812 11.1367C10.8452 11.1832 10.5473 11.2767 10.2876 11.416C10.0279 11.5399 9.81308 11.7258 9.64502 11.9736C9.47708 12.2214 9.39308 12.5546 9.39307 12.9727C9.39307 13.4218 9.49236 13.7707 9.69092 14.0186C9.87426 14.2664 10.1116 14.4522 10.4019 14.5762C10.6921 14.6846 11.0206 14.7542 11.3872 14.7852C11.7384 14.8006 12.0743 14.8086 12.395 14.8086H14.5034V11.0674H12.1665Z" fill="currentColor"></path></svg>
       <span class="rp-shimmer" style="font-family:'Fraunces',serif; font-size:15px; color:var(--ink);">Ryan Phillips</span></span>
@@ -405,8 +415,8 @@
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;accent&quot;: {
     &quot;editor&quot;: &quot;color&quot;,
-    &quot;default&quot;: &quot;#5B6B8A&quot;,
-    &quot;options&quot;: [&quot;#5B6B8A&quot;, &quot;#C4684B&quot;, &quot;#7A8C5C&quot;, &quot;#B89968&quot;],
+    &quot;default&quot;: &quot;#56658A&quot;,
+    &quot;options&quot;: [&quot;#56658A&quot;, &quot;#994C36&quot;, &quot;#59683F&quot;, &quot;#795D35&quot;],
     &quot;tsType&quot;: &quot;string&quot;,
     &quot;section&quot;: &quot;Feel&quot;,
     &quot;label&quot;: &quot;Accent pigment&quot;
@@ -437,7 +447,7 @@ class Component extends DCLogic {
       var b = document.body.style;
 
       // Accent pigment - Quill's colored-pencil cast
-      b.setProperty('--rp-accent', p.accent || '#5B6B8A');
+      b.setProperty('--rp-accent', p.accent || '#56658A');
 
       // Paper ground - [page, panel, card, warm-card]
       var grounds = {

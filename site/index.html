@@ -92,9 +92,10 @@
     .rp-footline__sep { display: none; }
     .rp-footline__copy { white-space: normal; text-align: center; }
   }
-  /* About: stack the Interesting Facts card under the paragraph on mobile */
-  @media (max-width: 640px) {
-    .rp-about-grid { grid-template-columns: 1fr; }
+  /* About: stack the Interesting Facts card under the paragraph on mobile.
+     !important is required to override the grid div's inline grid-template-columns. */
+  @media (max-width: 760px) {
+    .rp-about-grid { grid-template-columns: 1fr !important; }
   }
 </style>
 <style>

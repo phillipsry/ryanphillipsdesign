@@ -92,6 +92,10 @@
     .rp-footline__sep { display: none; }
     .rp-footline__copy { white-space: normal; text-align: center; }
   }
+  /* About: stack the Interesting Facts card under the paragraph on mobile */
+  @media (max-width: 640px) {
+    .rp-about-grid { grid-template-columns: 1fr; }
+  }
 </style>
 <style>
   [data-tcarousel-track]{ scrollbar-width:none; -ms-overflow-style:none; }
@@ -102,14 +106,6 @@
   .rp-cbtn{ width:42px; height:42px; flex:none; display:inline-flex; align-items:center; justify-content:center; border:1px solid var(--ink); background:transparent; color:var(--ink); border-radius:50%; cursor:pointer; font-size:18px; line-height:1; transition:background .2s,transform .2s; }
   .rp-cbtn:hover{ background:rgba(42,38,34,.06); transform:translateY(-1px); }
   .rp-cbtn:active{ transform:translateY(0); }
-  /* Footer lockup: monogram + name stay together (nowrap); copyright stacks below on mobile */
-  .rp-footline__brand { white-space: nowrap; }
-  .rp-footline__copy { white-space: nowrap; }
-  @media (max-width: 540px) {
-    .rp-footline { flex-direction: column; }
-    .rp-footline__sep { display: none; }
-    .rp-footline__copy { white-space: normal; text-align: center; }
-  }
 </style>
 <script>
   (function(){
@@ -153,7 +149,7 @@
     }, true);
   })();
 </script>
-<script defer src="assets/cal-embed.js"></script>
+<script src="assets/cal-embed.js"></script>
 </helmet>
 
 <template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#E6E9EB"></rect><text x="50" y="66" text-anchor="middle" font-family="Georgia, serif" font-size="44" fill="#5B6B8A">R</text></svg></template>
@@ -300,7 +296,7 @@
 <!-- ====================== ABOUT ====================== -->
 <section id="about" style="position:relative; background:var(--rp-panel, #ECEEF0);">
   <div class="rp-wrap" style="padding-top:clamp(48px,7vw,76px); padding-bottom:clamp(48px,7vw,76px); border-top:1px solid var(--line-faint);">
-    <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:clamp(32px,5vw,64px); align-items:start;">
+    <div class="rp-about-grid" style="display:grid; grid-template-columns:1.5fr 1fr; gap:clamp(32px,5vw,64px); align-items:start;">
       <div>
         <div style="font-family:'Raleway',sans-serif; font-size:12px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-muted);">About</div>
         <h2 style="font-family:'Fraunces',serif; font-weight:300; font-variation-settings:'opsz' 144,'SOFT' 50; font-size:clamp(28px,4.4vw,40px); line-height:1.1; letter-spacing:-.025em; color:var(--ink); margin:16px 0 0;">Collaboration is&nbsp;<em style="font-style: italic; color: var(--rp-accent,#5B6B8A); font-variation-settings: &quot;opsz&quot; 144, &quot;SOFT&quot; 100, &quot;WONK&quot; 1;">the key</em> that unlocks success.</h2>
